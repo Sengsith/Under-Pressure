@@ -2,9 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Draggable : MonoBehaviour {
+public class DraggableItem : MonoBehaviour {
    private Vector3 mousePositionOffset;
    private Vector3 previousScale;
+   private SpriteRenderer spriteRenderer;
+
+   private void Awake () {
+      spriteRenderer = GetComponent<SpriteRenderer>();
+   }
+
+   private void Start () {
+      // Only using colors right now to test game
+      // Will switch to sprites when completed
+      spriteRenderer.color = Random.ColorHSV(0f, 1f, 1f, 1f, .5f, 1f);
+   }
 
    // Capture mouse offset so center of item doesn't snap to mouse
    private void OnMouseDown () {
