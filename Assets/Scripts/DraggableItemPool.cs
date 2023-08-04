@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemPool : MonoBehaviour {
+public class DraggableItemPool : MonoBehaviour {
+   [SerializeField] private GameManagerSO gameManagerSO;
    [SerializeField] private DraggableItem draggleItemPrefab;
    [SerializeField] private int amountToSpawn = 10;
    
@@ -14,11 +15,16 @@ public class ItemPool : MonoBehaviour {
 
    private void Start () {
       while (draggableItemList.Count < amountToSpawn) {
-         Debug.Log(draggableItemList.Count + ": Instantiate");
          DraggableItem newDraggableItem = Instantiate(draggleItemPrefab);
          draggableItemList.Add(newDraggableItem);
       }
+      // Sends a random DraggableItem to the GameManagerSO so it can fire off an event
+      gameManagerSO.SendRandomDraggableItem(GetRandomDraggableItem());
    }
 
-   // Pick a random DraggableItem from the list and send to SubmitZone so it can reference the correct item
+   // Return random item from list
+   private DraggableItem GetRandomDraggableItem () {
+      int randomValue = Random.Range(0, amountToSpawn);
+      return draggableItemList[randomValue];
+   }
 }

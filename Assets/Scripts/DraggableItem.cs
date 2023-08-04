@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DraggableItem : MonoBehaviour {
+   private static int orderInLayer = 10;
+   private static float zPosition = 0f;
+
    private Vector3 mousePositionOffset;
    private Vector3 previousScale;
    private SpriteRenderer spriteRenderer;
 
    private void Awake () {
       spriteRenderer = GetComponent<SpriteRenderer>();
-   }
 
-   private void Start () {
       // Only using colors right now to test game
       // Will switch to sprites when completed
       spriteRenderer.color = Random.ColorHSV(0f, 1f, 1f, 1f, .5f, 1f);
+
+      // Increments and sets the order/z position in layer so they maintain their stacked effect
+      // Trigger will still work!
+      orderInLayer += 10;
+      spriteRenderer.sortingOrder = orderInLayer;
+      zPosition -= 10f;
+      transform.position = new Vector3(transform.position.x, transform.position.y, zPosition);
    }
 
    // Capture mouse offset so center of item doesn't snap to mouse
@@ -40,5 +49,9 @@ public class DraggableItem : MonoBehaviour {
          Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
          Camera.main.ScreenToWorldPoint(Input.mousePosition).y,
          0f);
+   }
+
+   public Color GetColor () {
+      return spriteRenderer.color;
    }
 }
