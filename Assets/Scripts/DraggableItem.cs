@@ -45,10 +45,7 @@ public class DraggableItem : MonoBehaviour {
 
    // Converts mouse position to world space
    private Vector3 GetMouseWorldPosition () {
-      return new Vector3 (
-         Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
-         Camera.main.ScreenToWorldPoint(Input.mousePosition).y,
-         0f);
+      return Camera.main.ScreenToWorldPoint(Input.mousePosition);
    }
 
    public Color GetColor () {

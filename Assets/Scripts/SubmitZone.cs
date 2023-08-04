@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class SubmitZone : MonoBehaviour {
    [SerializeField] private GameManagerSO gameManagerSO;
+   [SerializeField] private GameObject correctItem;
 
-   private SpriteRenderer spriteRenderer;
+   private SpriteRenderer correctItemSR;
    private DraggableItem correctDraggableItem;
 
    private void Awake () {
-      spriteRenderer = GetComponent<SpriteRenderer>();
+      correctItemSR = correctItem.GetComponent<SpriteRenderer>();
    }
 
    private void Start () {
@@ -19,7 +20,7 @@ public class SubmitZone : MonoBehaviour {
    private void GameManagerSO_OnRandomDraggleItemGenerated (object sender, GameManagerSO.OnRandomDraggableItemGeneratedEventArgs e) {
       correctDraggableItem = e.randomDraggableItem;
 
-      spriteRenderer.color = correctDraggableItem.GetColor();
+      correctItemSR.color = correctDraggableItem.GetColor();
    }
 
    private void OnTriggerEnter2D (Collider2D collision) {
